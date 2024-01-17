@@ -14,7 +14,7 @@ class TicketController extends Controller
     {
         $tickets = Ticket::all();
 
-        return view('tickets/index',['tickets'=>$tickets]);
+        return view('tickets/index', ['tickets' => $tickets]);
     }
 
     /**
@@ -38,7 +38,10 @@ class TicketController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //show
+        $ticket = Ticket::findOrFail($id);
+
+        return view('tickets/show', ['ticket' => $ticket]);
     }
 
     /**
@@ -46,7 +49,10 @@ class TicketController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //edit
+        $ticket = Ticket::findOrFail($id);
+
+        return view('tickets/edit', ['ticket' => $ticket]);
     }
 
     /**
