@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+    {{$tickets}}
     <table border="1px">
         <thead>
             <tr>

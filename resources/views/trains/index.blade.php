@@ -7,7 +7,6 @@
     <title>trenes</title>
 </head>
 <body>
-    {{$trains}}
     <table border="1px">
         <thead>
             <tr>
