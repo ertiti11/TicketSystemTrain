@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TicketType;
 
 class TicketTypeController extends Controller
 {
@@ -11,7 +12,9 @@ class TicketTypeController extends Controller
      */
     public function index()
     {
-        //
+        //index method
+        $ticket_types = TicketType::all();
+        return view('ticket_types.index', ['ticket_types' => $ticket_types]);
     }
 
     /**
@@ -19,7 +22,9 @@ class TicketTypeController extends Controller
      */
     public function create()
     {
-        //
+        //create
+        return view('ticket_types.create');
+
     }
 
     /**
@@ -27,7 +32,14 @@ class TicketTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //store data
+        // [{"id":1,"type":"Billete sencillo","created_at":null,"updated_at":null},{"id":2,"type":"Abono mensual","created_at":null,"updated_at":null},{"id":3,"type":"Abono trimestral","created_at":null,"updated_at":null}]
+
+        $ticket_type = new TicketType();
+        $ticket_type->type = $request->input('type');
+        $ticket_type->save();
+
+        return redirect()->route('ticket_types.index');
     }
 
     /**
@@ -35,7 +47,10 @@ class TicketTypeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //show
+        $ticket_type = TicketType::find($id);
+        return view('ticket_types.show', ['ticket_type' => $ticket_type]);
+
     }
 
     /**
@@ -43,7 +58,9 @@ class TicketTypeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //edit
+        $ticket_type = TicketType::find($id);
+        return view('ticket_types.edit', ['ticket_type' => $ticket_type]);
     }
 
     /**
@@ -51,7 +68,12 @@ class TicketTypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //update
+        $ticket_type = TicketType::find($id);
+        $ticket_type->name = $request->name;
+        $ticket_type->save();
+
+        return redirect()->route('ticket_types.index');
     }
 
     /**
@@ -59,6 +81,10 @@ class TicketTypeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //delete
+        $ticket_type = TicketType::find($id);
+        $ticket_type->delete();
+
+        return redirect()->route('ticket_types.index');
     }
 }
