@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Train;
 
 class TrainController extends Controller
 {
@@ -11,7 +12,10 @@ class TrainController extends Controller
      */
     public function index()
     {
-        //
+        //index 
+        $trains = Train::all();
+
+        return view('trains/index', ['trains' => $trains]);
     }
 
     /**
@@ -19,7 +23,8 @@ class TrainController extends Controller
      */
     public function create()
     {
-        //
+        //create
+        return view('trains/create');
     }
 
     /**
@@ -27,7 +32,15 @@ class TrainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //store
+        $train = new Train();
+        // {"id":1,"name":"la ovni","passengers":"100","year":"1990","train_type_id":1,"created_at":null,"updated_at":null}
+        $train->name = $request->input('name');
+        $train->passengers = $request->input('passengers');
+        $train->year = $request->input('year');
+        $train->train_type_id = $request->input('train_type_id');
+                
+        $train->save();
     }
 
     /**
@@ -35,7 +48,11 @@ class TrainController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //show
+        $train = Train::findOrFail($id);
+
+        return view('trains/show', ['train' => $train]);
+
     }
 
     /**
@@ -43,7 +60,10 @@ class TrainController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //edit
+        $train = Train::findOrFail($id);
+
+        return view('trains/edit', ['train' => $train]);
     }
 
     /**
@@ -51,7 +71,10 @@ class TrainController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //update
+        $train = Train::findOrFail($id);
+        $train->name = $request->input('name');
+        $train->save();
     }
 
     /**
@@ -59,6 +82,10 @@ class TrainController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //destroy
+        $train = Train::findOrFail($id);
+        $train->delete();
+
+        return redirect()->route('trains.index');
     }
 }
