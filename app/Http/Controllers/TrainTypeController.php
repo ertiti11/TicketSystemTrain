@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TicketType;
 
 class TrainTypeController extends Controller
 {
@@ -11,7 +12,9 @@ class TrainTypeController extends Controller
      */
     public function index()
     {
-        //
+        //index
+        $train_types = TicketType::all();
+        return view('train_types.index', ['train_types' => $train_types]);
     }
 
     /**
@@ -19,7 +22,9 @@ class TrainTypeController extends Controller
      */
     public function create()
     {
-        //
+        //create
+        $train_types = TicketType::all();
+        return view('train_types.create', ['train_types' => $train_types]);
     }
 
     /**
@@ -27,7 +32,13 @@ class TrainTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //store data
+        $train_type = new TicketType();
+        $train_type->type = $request->input('type');
+
+        $train_type->save();
+
+        return redirect()->route('train_types.index');
     }
 
     /**
@@ -35,7 +46,10 @@ class TrainTypeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //show
+        $train_type = TicketType::findOrFail($id);
+
+        return view('train_types.show', ['train_type' => $train_type]);
     }
 
     /**
@@ -43,7 +57,10 @@ class TrainTypeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //edit
+        $train_type = TicketType::findOrFail($id);
+
+        return view('train_types.edit', ['train_type' => $train_type]);
     }
 
     /**
@@ -51,7 +68,12 @@ class TrainTypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //update
+        $train_type = TicketType::findOrFail($id);
+        $train_type->type = $request->input('type');
+        $train_type->save();
+
+        return redirect()->route('train_types.index');
     }
 
     /**
@@ -59,6 +81,10 @@ class TrainTypeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //destroy
+        $train_type = TicketType::findOrFail($id);
+        $train_type->delete();
+
+        return redirect()->route('train_types.index');
     }
 }

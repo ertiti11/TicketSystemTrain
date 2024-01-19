@@ -66,8 +66,9 @@ class TrainController extends Controller
     {
         //edit
         $train = Train::findOrFail($id);
+        $trainTypes = TrainType::all();
 
-        return view('trains/edit', ['train' => $train]);
+        return view('trains/edit', ['train' => $train, 'trainTypes' => $trainTypes]);
     }
 
     /**
@@ -78,7 +79,12 @@ class TrainController extends Controller
         //update
         $train = Train::findOrFail($id);
         $train->name = $request->input('name');
+        $train->passengers = $request->input('passengers');
+        $train->year = $request->input('year');
+        $train->train_type_id = $request->input('train_type_id');
         $train->save();
+
+        return redirect()->route('trains.index');
     }
 
     /**

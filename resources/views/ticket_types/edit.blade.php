@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>create</title>
+    <title>edit ticket type</title>
 </head>
 
 <body>
     @include('Navbar')
-    <form action="{{ route('ticket_types.store') }}" method="POST">
+    <form method="POST" action="{{ route('ticket_types.update', $ticket_type->id) }}">
         @csrf
+        @method('PUT')
         <label for="type">Type</label>
-        <input type="text" name="type" id="type">
-        <br>
-        <button type="submit">Crear</button>
+        <input type="text" name="type" id="type" value="{{ $ticket_type->type }}">
+        <button type="submit">Actualizar</button>
     </form>
 
 </body>

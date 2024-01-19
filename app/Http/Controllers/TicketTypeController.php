@@ -24,7 +24,6 @@ class TicketTypeController extends Controller
     {
         //create
         return view('ticket_types.create');
-
     }
 
     /**
@@ -50,7 +49,6 @@ class TicketTypeController extends Controller
         //show
         $ticket_type = TicketType::find($id);
         return view('ticket_types.show', ['ticket_type' => $ticket_type]);
-
     }
 
     /**
@@ -70,7 +68,7 @@ class TicketTypeController extends Controller
     {
         //update
         $ticket_type = TicketType::find($id);
-        $ticket_type->name = $request->name;
+        $ticket_type->type = $request->type;
         $ticket_type->save();
 
         return redirect()->route('ticket_types.index');

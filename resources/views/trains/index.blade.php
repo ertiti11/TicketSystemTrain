@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>trenes</title>
 </head>
+
 <body>
+
+    @include('Navbar')
     <table border="1px">
         <thead>
             <tr>
@@ -14,6 +19,7 @@
                 <th>Nombre</th>
                 <th>Capacidad</th>
                 <th>año</th>
+                <th>tipo de tren</th>
                 <th>acciones</th>
             </tr>
         </thead>
@@ -24,6 +30,8 @@
                     <td><a href="{{ route('trains.show', $train->id) }}">{{ $train->name }}</a></td>
                     <td><a href="{{ route('trains.show', $train->id) }}">{{ $train->passengers }}</a></td>
                     <td><a href="{{ route('trains.show', $train->id) }}">{{ $train->year }}</a></td>
+                    {{-- tipo de tren --}}
+                    <td><a href="{{ route('trains.show', $train->id) }}">{{ $train->trainType->type }}</a></td>
                     <td>
                         <a href="{{ route('trains.edit', $train->id) }}">Editar</a>
                         <form action="{{ route('trains.destroy', $train->id) }}" method="POST">
@@ -39,4 +47,5 @@
     <a href="{{ route('trains.create') }}">Crear tren</a>
 
 </body>
+
 </html>
